@@ -1,1 +1,1 @@
-print("/Plugin/init.lua")
+require("nvim-treesitter.ts_utils")

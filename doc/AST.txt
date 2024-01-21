@@ -4,7 +4,7 @@
 
                                                                     *AST.nvim*
 
-|AST.nvim| is an Abstract Syntax Tree (AST) implementaion for neovim.
+|AST.nvim| is an Abstract Syntax Tree (AST) implementation for neovim.
 
 				       Type |gO| to see the table of contents.
 
