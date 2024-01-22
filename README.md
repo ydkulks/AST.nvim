@@ -10,6 +10,11 @@ help you understand the code better.
 
 ## Demo
 
+## Requirements
+
+- Install NerdFont for displaying icons in right format.
+- Treesitter plugin
+
 ## Quick Start
 
 ## Usage

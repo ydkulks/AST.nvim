@@ -1,5 +1,4 @@
 local M = {}
-local vim = vim
 require("AST.config")
 local ts_utils = require("nvim-treesitter.ts_utils")
 
@@ -15,20 +14,48 @@ local function getRootNode()
   return node:root()
 end
 
-M.test= function (index)
-  local root_node = getRootNode()
-  if index == nil then
-    index = 0
-  end
-  -- local bufnr = vim.api.nvim_get_current_buf()
-  -- ts_utils.update_selection(bufnr,root_node:named_child(index))
-  local children = ts_utils.get_named_children(root_node)
-  for child, _ in pairs(children) do
-    print(children[child])
-    if children[child]:type() == "function_declaration" then
-      print("Found function_declaration")
+local function VisitNode(node)
+  for child, _ in ipairs(node) do
+    -- print(node[child])
+    -- Get function_declaration node
+    if node[child]:type() == "function_declaration" then
+      -- need a function to display function node
+      local row, col, _ = node[child]:named_child(0):start()
+      row = row + 1
+      col = col + 1
+      print("Function identifier: " .. row, col)
     end
+    -- Get if_statement node
+    if node[child]:type() == "if_statement" then
+      local row, col, _ = node[child]:start()
+      row = row + 1
+      col = col + 1
+      print("If condition: " .. row, col)
+    end
+
+    -- Attempt to get named children
+    local success, _ = pcall(function() return node:named_children() end)
+    if success then
+      -- local children = ts_utils.get_named_children(node)
+      local children = node.named_children()
+      for _, grandChild in ipairs(children) do
+        VisitNode(grandChild)
+      end
+    else
+      -- If an error occurs, print a message and exit the loop
+      -- print("Error:", _)
+      print("Error")
+      -- return
+    end
+
   end
+end
+
+M.test= function ()
+  -- local bufnr = vim.api.nvim_get_current_buf()
+  local root_node = getRootNode()
+  local children = ts_utils.get_named_children(root_node)
+  VisitNode(children)
 end
 
 return M
