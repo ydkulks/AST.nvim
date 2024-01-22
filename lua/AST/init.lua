@@ -12,10 +12,7 @@ local function getRootNode()
   if node == nil then
     error("No Treesitter parser found.")
   end
-  local root_node = node:root()
-  -- local parent_node = node:parent()
-  -- local child_node = node:next_sibling()
-  return root_node
+  return node:root()
 end
 
 M.test= function (index)
@@ -23,10 +20,15 @@ M.test= function (index)
   if index == nil then
     index = 0
   end
-  local bufnr = vim.api.nvim_get_current_buf()
-  ts_utils.update_selection(bufnr,root_node:named_child(index))
-  -- local child = ts_utils.get_named_children(root_node)
-  -- print(vim.inspect(child))
+  -- local bufnr = vim.api.nvim_get_current_buf()
+  -- ts_utils.update_selection(bufnr,root_node:named_child(index))
+  local children = ts_utils.get_named_children(root_node)
+  for child, _ in pairs(children) do
+    print(children[child])
+    if children[child]:type() == "function_declaration" then
+      print("Found function_declaration")
+    end
+  end
 end
 
 return M
