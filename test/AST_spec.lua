@@ -18,7 +18,14 @@ describe("AST",function ()
 	end)
 
 	it("can use setup",function ()
-		require("AST").setup("My setup")
+		require("AST").setup({
+      nodeTypeRequired = {
+        "function_declaration",
+        "if_statement",
+        "for_statement",
+        "while_statement"
+      }
+    })
 	end)
 
 	it("Other test",function ()

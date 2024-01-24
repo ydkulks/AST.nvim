@@ -5,10 +5,12 @@
     - :h nvim-treesitter-utils
 - [x] Get position of functions
 - [x] Get position of conditions
-- [ ] Get position of loops
-- [ ] Loop through all the child and sub-child nodes
+- [x] Get position of loops
+- [x] Loop through all the child and sub-child nodes
 - [ ] UI
+    - [ ] Decision: Quick-fix-list or Pop-up buffer
 ```text
+Note: Install Nerdfont to view fonts
     Root
      󰊕() function [5:15]
         condition [row:col]
