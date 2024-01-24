@@ -1,1 +1,1 @@
-require("nvim-treesitter.ts_utils")
+vim.cmd("command! ASTToggle lua require('AST').toggle()")

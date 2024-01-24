@@ -7,7 +7,6 @@ local function checkNodeType(node, nodeType)
     row = row + 1
     col = col + 1
     if row ~= nil and col ~= nil then
-      -- print(nodeType .. ": [" .. row ..":" .. col .. "]")
       table.insert(M.results, {type = nodeType, row = row, col = col})
     end
   end
@@ -29,13 +28,6 @@ M.bfsTraversal = function(root, nodeTypeRequired)
     if current_node:named_child_count() > 0 then
       -- Print information about the current node
       -- print("Node type:", current_node:type())
-
-      -- local nodeTypeRequired = {
-      --   "function_declaration",
-      --   "if_statement",
-      --   "for_statement",
-      --   "while_statement"
-      -- }
       for _, value in ipairs(nodeTypeRequired) do
         checkNodeType(current_node, value)
       end
@@ -55,12 +47,6 @@ M.dfsTraversal = function(node, nodeTypeRequired)
     return
   end
 
-  -- local nodeTypeRequired = {
-  --   "function_declaration",
-  --   "if_statement",
-  --   "for_statement",
-  --   "while_statement"
-  -- }
   for _, value in ipairs(nodeTypeRequired) do
     checkNodeType(node, value)
   end
