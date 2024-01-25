@@ -12,7 +12,7 @@
     - [x] Decision: Quick-fix-list or Pop-up buffer
         - [x] Pop-up buffer
     - [x] Add indentation based on `col` value
-    - [ ] Color scheme
+    - [x] Color scheme
     - [ ] Icons
 - [ ] User configuration
     - [ ] Add nodes based on language

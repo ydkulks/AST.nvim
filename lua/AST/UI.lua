@@ -16,15 +16,40 @@ local function parseResult(results)
 
   for _, value in ipairs(results) do
     local indentation = ""
-    for _ = 0, value.col-2, 1 do
+    for _ = 1, value.col-1, 1 do
       indentation = indentation .. " "
     end
 
+    -- for _ = 1, value.type, 1 do
+    --   indentation = indentation .. "  "
+    -- end
+    indentation = indentation .. "  "
     local parsedResult = string.format("%s%s [ %d:%d ]", indentation, value.type, value.row, value.col)
     table.insert(parsedResults, parsedResult)
   end
 
   return parsedResults
+end
+
+local function colorScheme()
+  local hl_brackets = "Comment"
+  local hl_icon = "Special"
+
+  for line_num = 1, vim.api.nvim_buf_line_count(0) do
+    local line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
+
+    -- Highlighting brackets
+    local start_col_brackets, end_col_brackets = string.find(line, "%[.*%]")
+    if start_col_brackets and end_col_brackets then
+      vim.api.nvim_buf_add_highlight(0, -1, hl_brackets, line_num - 1, start_col_brackets - 1, end_col_brackets)
+    end
+
+    -- Highlighting icon at the beginning of the line
+    local start_col_icon, end_col_icon = string.find(line, "^%s*%S+")
+    if start_col_icon and end_col_icon then
+      vim.api.nvim_buf_add_highlight(0, -1, hl_icon, line_num - 1, start_col_icon - 1, end_col_icon)
+    end
+  end
 end
 
 local function create_window(results)
@@ -43,6 +68,7 @@ local function create_window(results)
     borderchars = borderchars,
   })
 
+  colorScheme()
   -- Remember cursor position and jump to it
   local row = cursor_pos[1]
   local col = cursor_pos[2]
