@@ -7,14 +7,14 @@
 - [x] Get position of conditions
 - [x] Get position of loops
 - [x] Loop through all the child and sub-child nodes
-- [ ] Remember cursor position in pop-up buffer
-- [ ] Window size config
+- [x] Remember cursor position in pop-up buffer
 - [ ] UI
     - [x] Decision: Quick-fix-list or Pop-up buffer
         - [x] Pop-up buffer
     - [ ] Add indentation based on `col` value
     - [ ] Color scheme
 - [ ] More configuration
+    - [ ] Window size config
     - [ ] Add nodes based on language
     - [ ] Config icons
     - [ ] Color scheme config

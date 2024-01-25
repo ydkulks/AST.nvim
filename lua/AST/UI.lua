@@ -4,6 +4,7 @@ local window_state = false
 local popup = require("plenary.popup")
 local algo = require("AST.search_algo")
 local buffer = 0
+local cursor_pos = { 0, 0 }
 
 local function getRootNode()
   local bufnr = vim.fn.bufnr()
@@ -36,6 +37,11 @@ local function create_window(results)
     maxheight = height,
     borderchars = borderchars,
   })
+
+  -- Remember cursor position and jump to it
+  local row = cursor_pos[1]
+  local col = cursor_pos[2]
+  vim.cmd(string.format('normal! %dgg%d|', row, col))
 end
 
 function M.toggle_window(config)
@@ -68,7 +74,7 @@ end
 
 function M.goto_line()
   -- Get cursor position and its line value
-  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  cursor_pos = vim.api.nvim_win_get_cursor(0)
   local line_value = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)[1]
 
   -- Extract row and column values from the end of the line
