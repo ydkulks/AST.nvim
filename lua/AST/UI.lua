@@ -15,7 +15,12 @@ local function parseResult(results)
   local parsedResults = {}
 
   for _, value in ipairs(results) do
-    local parsedResult = string.format("%s [ %d:%d ]", value.type, value.row, value.col)
+    local indentation = ""
+    for _ = 0, value.col-2, 1 do
+      indentation = indentation .. " "
+    end
+
+    local parsedResult = string.format("%s%s [ %d:%d ]", indentation, value.type, value.row, value.col)
     table.insert(parsedResults, parsedResult)
   end
 
@@ -30,10 +35,10 @@ local function create_window(results)
   buffer = popup.create(content, {
     title = "AST",
     highlight = "HarpoonWindow",
-    padding = { 0, 1, 0, 1 },
-    minwidth = width,
+    padding = { 0, 1, 0, 0 },
+    minwidth = 50,
     maxwidth = width,
-    minheight = height,
+    minheight = 5,
     maxheight = height,
     borderchars = borderchars,
   })

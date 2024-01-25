@@ -11,16 +11,15 @@
 - [ ] UI
     - [x] Decision: Quick-fix-list or Pop-up buffer
         - [x] Pop-up buffer
-    - [ ] Add indentation based on `col` value
+    - [x] Add indentation based on `col` value
     - [ ] Color scheme
-- [ ] More configuration
-    - [ ] Window size config
+    - [ ] Icons
+- [ ] User configuration
     - [ ] Add nodes based on language
     - [ ] Config icons
     - [ ] Color scheme config
 ```text
 Note: Install Nerdfont to view fonts
-    Root
      󰊕() function [5:15]
         condition [row:col]
          loop [row:col]
