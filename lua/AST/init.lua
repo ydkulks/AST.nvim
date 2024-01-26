@@ -1,4 +1,5 @@
 local M = {}
+require("AST.theme")
 local vim = vim
 local defaults = require("AST.config")
 local UI = require("AST.UI")

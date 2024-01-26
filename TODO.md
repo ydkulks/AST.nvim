@@ -14,11 +14,12 @@
     - [x] Add indentation based on `col` value
     - [x] Color scheme
     - [x] Icons
-- [ ] User configuration
+- [x] User configuration
     - [x] Add nodes based on language
     - [x] Config icons
-    - [ ] Color scheme config
+    - [x] Color scheme config
 - [ ] Add more to default config
+- [ ] indentation issue: base it on hierarchy and not `col`
 - [ ] Documentation
     - [ ] README.md
     - [ ] AST.txt (vim help doc)

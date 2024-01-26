@@ -28,8 +28,8 @@ local function parseResult(results)
 end
 
 local function colorScheme()
-  local hl_brackets = "Comment"
-  local hl_icon = "Special"
+  local hl_brackets = "ASTCoordinates"
+  local hl_icon = "ASTIcon"
 
   for line_num = 1, vim.api.nvim_buf_line_count(0) do
     local line = vim.api.nvim_buf_get_lines(0, line_num - 1, line_num, false)[1]
@@ -55,7 +55,7 @@ local function create_window(results)
   local borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" }
   buffer = popup.create(content, {
     title = "AST",
-    highlight = "HarpoonWindow",
+    highlight = "ASTWindow",
     padding = { 0, 1, 0, 0 },
     minwidth = 50,
     maxwidth = width,
