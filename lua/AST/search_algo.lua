@@ -1,4 +1,5 @@
 local M = {}
+local vim = vim
 M.results = {}
 
 local function checkNodeType(node, nodeType_Icon)
@@ -13,6 +14,20 @@ local function checkNodeType(node, nodeType_Icon)
     end
   end
 end
+--[[
+local function checkNodeType(node, config)
+  for _, typeAndIcon in pairs(config) do
+    if node:type() == typeAndIcon[1] then
+      local row, col, _ = node:start()
+      row = row + 1
+      col = col + 1
+      if row ~= nil and col ~= nil then
+        table.insert(M.results, { icon = typeAndIcon[2], type = typeAndIcon[1], row = row, col = col })
+      end
+    end
+  end
+end
+--]]
 
 -- BFS traversal function
 M.bfsTraversal = function(root, nodeTypeRequired)

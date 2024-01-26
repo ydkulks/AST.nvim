@@ -15,9 +15,13 @@
     - [x] Color scheme
     - [x] Icons
 - [ ] User configuration
-    - [ ] Add nodes based on language
+    - [x] Add nodes based on language
     - [x] Config icons
     - [ ] Color scheme config
+- [ ] Add more to default config
+- [ ] Documentation
+    - [ ] README.md
+    - [ ] AST.txt (vim help doc)
 ```text
 Note: Install Nerdfont to view fonts
      󰡱 function [5:15]

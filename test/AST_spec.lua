@@ -1,24 +1,23 @@
 local describe = describe
 local it = it
-local vim= vim
+local vim = vim
 
-describe("AST",function ()
-
-	it("can be required",function ()
+describe("AST", function()
+  it("can be required", function()
     require("nvim-treesitter.ts_utils")
-		-- require("AST")
-	end)
+    -- require("AST")
+  end)
 
-	it("can get manual",function ()
+  it("can get manual", function()
     vim.cmd("h AST.txt")
-	end)
+  end)
 
-	it("can use config",function ()
-		require("AST.config")
-	end)
+  it("can use config", function()
+    require("AST.config")
+  end)
 
-	it("can use setup",function ()
-		require("AST").setup({
+  it("can use setup", function()
+    require("AST").setup({
       nodeTypeRequired = {
         "function_declaration",
         "if_statement",
@@ -26,17 +25,36 @@ describe("AST",function ()
         "while_statement"
       }
     })
-	end)
+  end)
 
-	it("Other test",function ()
-
-    local ts_utils = require("nvim-treesitter.ts_utils")
-    local node = ts_utils.get_node_at_cursor()
-    if node == nil then
-      error("No Treesitter parser found.")
+  it("Other test", function()
+    local M = {}
+    M.nodeTypeRequired = {
+      javascript = {
+        -- { "function_declaration", "󰡱 " },
+        { "function_definition", "󰡱 " },
+        { "arrow_function", "󰡱 " },
+        { "if_statement", " " },
+        { "for_statement", " " },
+        { "while_statement", " " }
+      },
+      lua = {
+        { "function_declaration", "󰡱 " },
+        { "function_definition", "󰡱 " },
+        -- { "arrow_function", "󰡱 " },
+        { "if_statement", " " },
+        { "for_statement", " " },
+        { "while_statement", " " }
+      },
+    }
+    for fileType, config in pairs(M.nodeTypeRequired) do
+      print(fileType)
+      for _, type_and_icon in pairs(config) do
+        local nodeType = type_and_icon[1]
+        local nodeIcon = type_and_icon[2]
+        print(nodeIcon, nodeType)
+      end
     end
-		require("AST").test()
-
-	end)
-
+    return M
+  end)
 end)

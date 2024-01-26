@@ -78,7 +78,7 @@ function M.toggle_window(config)
     local root_node = getRootNode()
 
     -- Travarse through treesitter and append nodes to "results" table
-    algo.dfsTraversal(root_node, config.nodeTypeRequired)
+    algo.dfsTraversal(root_node, config)
 
     create_window(algo.results)
 

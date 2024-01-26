@@ -12,8 +12,9 @@ help you understand the code better.
 
 ## Requirements
 
-- Install NerdFont for displaying icons in right format.
-- Treesitter plugin
+- Install [NerdFont](https://www.nerdfonts.com/) for displaying icons in right format.
+- [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) plugin
+- [Plenary](https://github.com/nvim-lua/plenary.nvim) plugin
 
 ## Quick Start
 
