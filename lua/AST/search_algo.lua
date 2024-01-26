@@ -1,13 +1,15 @@
 local M = {}
 M.results = {}
 
-local function checkNodeType(node, nodeType)
-  if node:type() == nodeType then
-    local row, col, _ = node:start()
-    row = row + 1
-    col = col + 1
-    if row ~= nil and col ~= nil then
-      table.insert(M.results, {type = nodeType, row = row, col = col})
+local function checkNodeType(node, nodeType_Icon)
+  for i, nodeType in pairs(nodeType_Icon) do
+    if node:type() == nodeType then
+      local row, col, _ = node:start()
+      row = row + 1
+      col = col + 1
+      if row ~= nil and col ~= nil then
+        table.insert(M.results, { icon = nodeType_Icon[i+1], type = nodeType, row = row, col = col })
+      end
     end
   end
 end

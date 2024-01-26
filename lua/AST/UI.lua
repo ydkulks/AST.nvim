@@ -16,15 +16,11 @@ local function parseResult(results)
 
   for _, value in ipairs(results) do
     local indentation = ""
-    for _ = 1, value.col-1, 1 do
+    for _ = 1, value.col - 1, 1 do
       indentation = indentation .. " "
     end
 
-    -- for _ = 1, value.type, 1 do
-    --   indentation = indentation .. "  "
-    -- end
-    indentation = indentation .. "  "
-    local parsedResult = string.format("%s%s [ %d:%d ]", indentation, value.type, value.row, value.col)
+    local parsedResult = string.format("%s%s%s [ %d:%d ]", indentation, value.icon, value.type, value.row, value.col)
     table.insert(parsedResults, parsedResult)
   end
 

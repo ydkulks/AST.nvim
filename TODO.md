@@ -8,25 +8,25 @@
 - [x] Get position of loops
 - [x] Loop through all the child and sub-child nodes
 - [x] Remember cursor position in pop-up buffer
-- [ ] UI
+- [x] UI
     - [x] Decision: Quick-fix-list or Pop-up buffer
         - [x] Pop-up buffer
     - [x] Add indentation based on `col` value
     - [x] Color scheme
-    - [ ] Icons
+    - [x] Icons
 - [ ] User configuration
     - [ ] Add nodes based on language
-    - [ ] Config icons
+    - [x] Config icons
     - [ ] Color scheme config
 ```text
 Note: Install Nerdfont to view fonts
-     󰊕() function [5:15]
+     󰡱 function [5:15]
         condition [row:col]
          loop [row:col]
-     󰊕() function [row:col]
-        󰊕() Function [row:col]
-        󰊕() Function [row:col]
-     󰊕() function [row:col]
+     󰡱  function [row:col]
+        󰡱  Function [row:col]
+        󰡱  Function [row:col]
+     󰡱  function [row:col]
           loop [row:col]
 
 ```
