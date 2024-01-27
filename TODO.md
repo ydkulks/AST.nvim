@@ -21,7 +21,7 @@
 - [x] Add more to default config
 - [x] indentation issue: base it on hierarchy and not `col`
 - [ ] Documentation
-    - [ ] README.md
+    - [x] README.md
     - [ ] AST.txt (vim help doc)
 ```text
 Note: Install Nerdfont to view fonts

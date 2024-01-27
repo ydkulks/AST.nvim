@@ -1,14 +1,18 @@
-# AST.nvim
+<h1 align="center"> AST.nvim </h1>
 
-AST implementation for neovim text editor.
+<p align="center">AST implementation for neovim text editor.</p>
 
 ## Motivation
 - Abstract Syntax Tree (AST), is a tree that represents the code in an abstract way, with will
 help you understand the code better.
-- I could not find an AST plugin for neovim.
-- So, I decided to make my own.
+- Especially when you are working on someone else's codebase
+- It's also helpful to move around in a file quickly
 
 ## Demo
+<div align="center">
+
+![](https://github.com/ydkulks/AST.nvim/assets/56758248/04a223fa-ed67-45d8-8d60-aa57cdca7481)
+</div>
 
 ## Requirements
 
@@ -17,7 +21,68 @@ help you understand the code better.
 - [Plenary](https://github.com/nvim-lua/plenary.nvim) plugin
 
 ## Quick Start
+Using your favorite plugin manager, install this plugin with its dependencies.
 
-## Usage
+Here is an example for packer package manager.
+```lua
+use{
+  "ydkulks/AST.nvim",
+  requires = {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-lua/plenary.nvim"
+  },
+  config = function()
+    require("AST")
+  end
+}
+```
 
-## Contributing
+## Defaults
+
+You can view the defaults [here](https://github.com/ydkulks/AST.nvim/blob/0b8189c9cea41e3842a2fe01558b10adba3d4289/lua/AST/config.lua#L3) 
+and customize them according to your needs
+
+## Customization
+
+The `M.nodeTypeRequired` variable in `config.lua` takes "buffer type" (key) and a table of nodes and its icons.
+
+So to configure, call `setup()` and pass your configuration
+```lua
+require("AST").setup({
+  nodeTypeRequired = {
+    rust = {
+      { "function_declaration", "󰡱 " },
+      { "if_statement", " " },
+      { "for_statement", " " },
+      { "while_statement", " " }
+    }
+  }
+})
+```
+> Note: You can get the node type value from inspecting the buffer using `:InspectTree` or by installing
+> treesitter's playground plugin.
+
+## User Mappings
+
+The vim command `:ASTToggle` will toggle the pop-up. Map this command to some keys to toggle the window.
+```lua
+-- For example:
+-- Mapped <leader>t to toggle the pop-up window
+vim.keymap.set("n","<leader>t",":ASTToggle<CR>")
+```
+
+## Color Scheme
+
+In this [file](https://github.com/ydkulks/AST.nvim/blob/0b8189c9cea41e3842a2fe01558b10adba3d4289/lua/AST/theme.lua#L3), 
+some `highlight groups` have been created. Which can be changed in your configuration.
+
+```lua
+-- Here is an example to configure highlight groups
+vim.api.nvim_set_hl(0, 'ASTIcon', { fg = "#98C379", ctermfg = 114 })
+```
+
+## Contribute
+
+- Submissions are welcome. Just open a pull-request under a branch named after your name.
+- DO NOT MAKE CHANGES TO MAIN BRANCH
+- If you find a bug, please create an issue.
