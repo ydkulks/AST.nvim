@@ -16,7 +16,8 @@ local function parseResult(results)
 
   for _, value in ipairs(results) do
     local indentation = ""
-    for _ = 1, value.col - 1, 1 do
+    -- add indentation
+    for _ = 1, value.indent or 0, 1 do
       indentation = indentation .. " "
     end
 

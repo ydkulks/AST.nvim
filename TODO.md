@@ -11,7 +11,7 @@
 - [x] UI
     - [x] Decision: Quick-fix-list or Pop-up buffer
         - [x] Pop-up buffer
-    - [x] Add indentation based on `col` value
+    - [x] Add indentation
     - [x] Color scheme
     - [x] Icons
 - [x] User configuration
@@ -19,7 +19,7 @@
     - [x] Config icons
     - [x] Color scheme config
 - [x] Add more to default config
-- [ ] indentation issue: base it on hierarchy and not `col`
+- [x] indentation issue: base it on hierarchy and not `col`
 - [ ] Documentation
     - [ ] README.md
     - [ ] AST.txt (vim help doc)
