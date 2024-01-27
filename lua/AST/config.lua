@@ -2,7 +2,6 @@ local M = {}
 -- Default config
 M.nodeTypeRequired = {
   javascript = {
-    -- { "function_declaration", "󰡱 " },
     { "function_definition", "󰡱 " },
     { "arrow_function", "󰡱 " },
     { "if_statement", " " },
@@ -12,6 +11,20 @@ M.nodeTypeRequired = {
   lua = {
     { "function_declaration", "󰡱 " },
     { "function_definition", "󰡱 " },
+    { "if_statement", " " },
+    { "for_statement", " " },
+    { "while_statement", " " }
+  },
+  markdown = {
+    { "atx_heading", " " },
+    { "list", " " },
+    { "fenced_code_block", " " },
+  },
+  go = {
+    {"package_clause"," "},
+    {"import_declaration","󰋺 "},
+    {"function_declaration","󰡱 "},
+    {"func_literal","󰡱 "},
     { "if_statement", " " },
     { "for_statement", " " },
     { "while_statement", " " }

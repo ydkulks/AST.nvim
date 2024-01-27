@@ -15,14 +15,8 @@ M.toggle = function()
   -- if buffer.filetype == userConfig.key, use : key.value
   local bufnr = vim.fn.bufnr()
   local bufferFileType = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-  for fileType, config in pairs(M.config.nodeTypeRequired) do
-    if fileType == bufferFileType then
-      return UI.toggle_window(config)
-    else
-      local generic = M.config.nodeTypeRequired.generic
-      return UI.toggle_window(generic)
-    end
-  end
+  local buffConfig = M.config.nodeTypeRequired[bufferFileType] or M.config.nodeTypeRequired.generic
+  return UI.toggle_window(buffConfig)
 end
 
 return M

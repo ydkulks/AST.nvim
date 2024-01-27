@@ -18,7 +18,7 @@
     - [x] Add nodes based on language
     - [x] Config icons
     - [x] Color scheme config
-- [ ] Add more to default config
+- [x] Add more to default config
 - [ ] indentation issue: base it on hierarchy and not `col`
 - [ ] Documentation
     - [ ] README.md
