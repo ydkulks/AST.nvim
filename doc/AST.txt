@@ -2,7 +2,7 @@
 
                                      AST
 
-                                                                    *AST.nvim*
+                                                              *AST* *AST.nvim*
 
 |AST.nvim| is an Abstract Syntax Tree (AST) implementation for neovim.
 
@@ -11,10 +11,39 @@
 ==============================================================================
 1. TABLE OF CONTENT
 
-- CONTENT                                                        |contentLink|
+- SETUP                                                          |AST.setup()|
+- TOGGLE WINDOW                                                 |AST.toggle()|
 
 ==============================================================================
-CONTENT
-								 *contentLink*
+2. SETUP
+                                                                 *AST.setup()*
+
+The `M.nodeTypeRequired` variable in `config.lua` takes "buffer type" (key) 
+and a table of nodes and its icons. So to configure, call `setup()` and 
+pass your configuration >lua
+  require("AST").setup({
+    nodeTypeRequired = {
+      rust = {
+        { "function_declaration", "󰡱 " },
+        { "if_statement", " " },
+        { "for_statement", " " },
+        { "while_statement", " " }
+      }
+    }
+  })
+<
+Note: You can get the node type value from inspecting the buffer using 
+`:InspectTree` or by installing treesitter's playground plugin.
+
+==============================================================================
+3. TOGGLE WINDOW
+                                                                *AST.toggle()*
+
+The vim command `:ASTToggle` will toggle the pop-up. Map this command to some 
+keys to toggle the window. >lua
+  -- For example:
+  -- Mapped <leader>t to toggle the pop-up window
+  vim.keymap.set("n","<leader>t",":ASTToggle<CR>")
+<
 
 vim:tw=78:ts=8:ft=help:norl:

@@ -3,7 +3,7 @@
 <p align="center">AST implementation for neovim text editor.</p>
 
 ## Motivation
-- Abstract Syntax Tree (AST), is a tree that represents the code in an abstract way, with will
+- Abstract Syntax Tree (AST), is a tree that represents the code in an abstract way, which will
 help you understand the code better.
 - Especially when you are working on someone else's codebase
 - It's also helpful to move around in a file quickly
@@ -36,6 +36,22 @@ use{
   end
 }
 ```
+
+## Usage
+
+### Toggle window
+
+Type `:ASTToggle` in vim command-line to toggle the window
+
+### Jumping
+- Toggle the window
+- Navigate to the node which you would like to jump to and hit enter
+- Hit enter key
+
+### Exiting window
+
+1. Go to a node to jump to that coordinate. This will close window before jumping.
+2. Hit `q` in `Normal` mode when the window is open
 
 ## Defaults
 
