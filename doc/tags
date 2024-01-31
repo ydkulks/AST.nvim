@@ -1,3 +1,5 @@
+AST	AST.txt	/*AST*
 AST.nvim	AST.txt	/*AST.nvim*
+AST.setup()	AST.txt	/*AST.setup()*
+AST.toggle()	AST.txt	/*AST.toggle()*
 AST.txt	AST.txt	/*AST.txt*
-contentLink	AST.txt	/*contentLink*
