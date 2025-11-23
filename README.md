@@ -91,7 +91,7 @@ The vim command `:ASTToggle` will toggle the pop-up. Map this command to some ke
 vim.keymap.set("n","<leader>t",":ASTToggle<CR>")
 ```
 
-## Color Scheme
+## Highlight Groups
 
 In this [file](https://github.com/ydkulks/AST.nvim/blob/0b8189c9cea41e3842a2fe01558b10adba3d4289/lua/AST/theme.lua#L3), 
 some `highlight groups` have been created. Which can be changed in your configuration.

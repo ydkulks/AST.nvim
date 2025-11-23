@@ -49,6 +49,34 @@ local function getNodeName(node)
     return "import"
   elseif node_type == "func_literal" then
     return "func"
+  elseif node_type == "jsx_element" or node_type == "jsx_self_closing_element" then
+    -- For JSX elements, find the tag name in the opening element
+    for child in node:iter_children() do
+      if child:type() == "jsx_opening_element" or child:type() == "jsx_self_closing_element" then
+        -- Look for the tag identifier within the opening element
+        for grandchild in child:iter_children() do
+          if grandchild:type() == "identifier" then
+            local start_row, start_col, end_row, end_col = grandchild:range()
+            if start_row == end_row then
+              local line = vim.api.nvim_buf_get_lines(0, start_row, start_row + 1, false)[1]
+              if line then
+                return line:sub(start_col + 1, end_col)
+              end
+            end
+          elseif grandchild:type() == "member_expression" then
+            -- Handle namespaced components like React.Component
+            local start_row, start_col, end_row, end_col = grandchild:range()
+            if start_row == end_row then
+              local line = vim.api.nvim_buf_get_lines(0, start_row, start_row + 1, false)[1]
+              if line then
+                return line:sub(start_col + 1, end_col)
+              end
+            end
+          end
+        end
+      end
+    end
+    return "jsx"
   end
 
   -- Fallback to node type if no name found
