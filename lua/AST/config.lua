@@ -1,5 +1,6 @@
 local M = {}
 -- Default config
+M.displayNodeNames = true -- true: show node names, false: show node types
 M.nodeTypeRequired = {
   javascript = {
     { "function_definition", "󰡱 " },

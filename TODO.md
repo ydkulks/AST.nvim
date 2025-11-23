@@ -3,8 +3,8 @@
 - [x] Documentation
     - [x] README.md
     - [x] AST.txt (vim help doc)
-<!-- - [ ] Display node names instead of node types? -->
-- [ ] Create nodeJump module to jump to parent or sibling or child node
-    - [ ] Create a function to toggle mode for jumping
-    - [ ] Create a mode specific key-maps (Arrow keys)
-    - [ ] Issue: :parent() and :child() are not working as intented
+- [x] Display node names instead of node types
+- [ ] Ablity to add any buffer(jsx, tsx, or any custom buffer) and the nodes to display; in config
+- [ ] UI options
+    - [ ] Quick fix list
+    - [ ] Side panel (left and right)

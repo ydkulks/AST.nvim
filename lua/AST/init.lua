@@ -12,11 +12,8 @@ M.setup = function(update)
 end
 
 M.toggle = function()
-  -- if buffer.filetype == userConfig.key, use : key.value
-  local bufnr = vim.fn.bufnr()
-  local bufferFileType = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-  local buffConfig = M.config.nodeTypeRequired[bufferFileType] or M.config.nodeTypeRequired.generic
-  return UI.toggle_window(buffConfig)
+  -- Pass the full config to UI.toggle_window so it can access displayNodeNames
+  return UI.toggle_window(M.config)
 end
 
 M.nodeJump = function()

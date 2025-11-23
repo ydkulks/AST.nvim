@@ -60,11 +60,15 @@ and customize them according to your needs
 
 ## Customization
 
-The `M.nodeTypeRequired` variable in `config.lua` takes "buffer type" (key) and a table of nodes and its icons.
+The plugin can be configured using the `setup()` function. Available options:
 
-So to configure, call `setup()` and pass your configuration
+- `displayNodeNames`: `true` to show node names (e.g., function names), `false` to show node types (default: `true`)
+- `nodeTypeRequired`: Buffer type (key) and a table of nodes and their icons
+
+Example configuration:
 ```lua
 require("AST").setup({
+  displayNodeNames = true,
   nodeTypeRequired = {
     rust = {
       { "function_declaration", "󰡱 " },

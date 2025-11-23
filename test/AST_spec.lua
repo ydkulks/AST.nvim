@@ -27,6 +27,18 @@ describe("AST", function()
     })
   end)
 
+  it("can configure displayNodeNames", function()
+    require("AST").setup({
+      displayNodeNames = false
+    })
+    assert.are.equal(require("AST").config.displayNodeNames, false)
+
+    require("AST").setup({
+      displayNodeNames = true
+    })
+    assert.are.equal(require("AST").config.displayNodeNames, true)
+  end)
+
   it("Other test", function()
     local M = {}
     M.nodeTypeRequired = {
