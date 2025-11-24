@@ -18,7 +18,8 @@ help you understand the code better.
 
 - Install [NerdFont](https://www.nerdfonts.com/) for displaying icons in right format.
 - [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) plugin
-- [Plenary](https://github.com/nvim-lua/plenary.nvim) plugin
+- [Plenary](https://github.com/nvim-lua/plenary.nvim) plugin (optional, for popup UI)
+- (Optional) [Telescope](https://github.com/nvim-telescope/telescope.nvim) for enhanced search
 
 ## Quick Start
 Using your favorite plugin manager, install this plugin with its dependencies.
@@ -39,19 +40,25 @@ use{
 
 ## Usage
 
-### Toggle window
+### Toggle AST Window
 
-Type `:ASTToggle` in vim command-line to toggle the window
+Type `:ASTToggle` in vim command-line to open the AST window. If Plenary is available, it opens a popup window; otherwise, it falls back to the quickfix list.
 
-### Jumping
-- Toggle the window
-- Navigate to the node which you would like to jump to and hit enter
-- Hit enter key
+#### Popup Mode (with Plenary)
+- Navigate to the node you want to jump to and press `<CR>`
+- Press `q` to close the window
 
-### Exiting window
+#### Quickfix Mode (fallback)
+- Navigate to the node you want to jump to and press `<CR>`
+- This jumps to the code location and closes the quickfix window
+- Use `:cclose` to close without jumping
 
-1. Go to a node to jump to that coordinate. This will close window before jumping.
-2. Hit `q` in `Normal` mode when the window is open
+### Search AST Nodes
+
+Type `:ASTSearch` to populate the quickfix list and open Telescope's fuzzy search (if available) or the standard quickfix window.
+
+- Use Telescope's search to filter and select nodes
+- Press `<CR>` to jump to the selected node
 
 ## Defaults
 
@@ -84,11 +91,13 @@ require("AST").setup({
 
 ## User Mappings
 
-The vim command `:ASTToggle` will toggle the pop-up. Map this command to some keys to toggle the window.
+Map the commands to keys for quick access.
 ```lua
 -- For example:
--- Mapped <leader>t to toggle the pop-up window
+-- Mapped <leader>t to toggle the AST window
 vim.keymap.set("n","<leader>t",":ASTToggle<CR>")
+-- Mapped <leader>s to search AST nodes
+vim.keymap.set("n","<leader>s",":ASTSearch<CR>")
 ```
 
 ## Highlight Groups

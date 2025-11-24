@@ -1,8 +1,10 @@
 local M = {}
 local vim = vim
 local window_state = false
-local popup = require("plenary.popup")
 local algo = require("AST.search_algo")
+
+-- Conditionally load plenary for popup
+local plenary_available, popup = pcall(require, 'plenary.popup')
 local buffer = 0
 local cursor_pos = { 0, 0 }
 
@@ -34,6 +36,7 @@ local function parseResult(results, config)
 end
 
 local function colorScheme()
+  if not plenary_available then return end
   local hl_brackets = "ASTCoordinates"
   local hl_icon = "ASTIcon"
 
@@ -55,6 +58,7 @@ local function colorScheme()
 end
 
 local function create_window(results, config)
+  if not plenary_available then return end
   local content = parseResult(results, config)
   local width = 70
   local height = 20
@@ -77,6 +81,27 @@ local function create_window(results, config)
   vim.cmd(string.format('normal! %dgg%d|', row, col))
 end
 
+local function populate_qfl(results, config)
+  local content = parseResult(results, config)
+  local bufnr = vim.fn.bufnr()
+  local entries = {}
+
+  for _, line in ipairs(content) do
+    -- Parse line: "  󰡱 function_name [12:5]"
+    local text, row, col = line:match("^(.*)%[ (%d+):(%d+) %]$")
+    if text and row and col then
+      table.insert(entries, {
+        bufnr = bufnr,
+        lnum = tonumber(row),
+        col = tonumber(col),
+        text = text,
+      })
+    end
+  end
+
+  vim.fn.setqflist(entries)
+end
+
 function M.toggle_window(config)
   if window_state then
     M.close_window()
@@ -88,29 +113,35 @@ function M.toggle_window(config)
     local bufferFileType = vim.bo[bufnr].filetype
     local nodeTypeConfig = config.nodeTypeRequired[bufferFileType] or config.nodeTypeRequired.generic
 
-    -- Travarse through treesitter and append nodes to "results" table
+    -- Traverse through treesitter and append nodes to "results" table
     algo.dfsTraversal(root_node, nodeTypeConfig)
 
-    create_window(algo.results, config)
+    -- Choose UI: popup if plenary available, else QFL
+    if plenary_available then
+      create_window(algo.results, config)
+      -- Keymaps for popup
+      vim.api.nvim_buf_set_keymap(0, 'n', '<CR>', "<cmd>lua require'AST.UI'.goto_line()<CR>",
+        { noremap = true, silent = true })
+      vim.api.nvim_buf_set_keymap(0, 'n', 'q', "<cmd>lua require'AST.UI'.close_window()<CR>",
+        { noremap = true, silent = true })
+      -- Buffer options
+      vim.wo[0].number = true
+      vim.wo[0].relativenumber = true
+      vim.wo[0].cursorline = true
+      vim.bo[0].filetype = 'AST'
+    else
+      populate_qfl(algo.results, config)
+      vim.cmd('copen')
+    end
 
     -- change state and reset value
     window_state = true
     algo.results = {}
-
-    -- Keymaps
-    vim.api.nvim_buf_set_keymap(0, 'n', '<CR>', "<cmd>lua require'AST.UI'.goto_line()<CR>",
-      { noremap = true, silent = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'q', "<cmd>lua require'AST.UI'.close_window()<CR>",
-      { noremap = true, silent = true })
-    -- Buffer options
-    vim.wo[0].number = true
-    vim.wo[0].relativenumber = true
-    vim.wo[0].cursorline = true
-    vim.bo[0].filetype = 'AST'
   end
 end
 
 function M.goto_line()
+  if not plenary_available then return end
   -- Get cursor position and its line value
   cursor_pos = vim.api.nvim_win_get_cursor(0)
   local line_value = vim.api.nvim_buf_get_lines(0, cursor_pos[1] - 1, cursor_pos[1], false)[1]
@@ -128,9 +159,89 @@ function M.goto_line()
 end
 
 function M.close_window()
-  vim.api.nvim_win_close(buffer, true)
+  if plenary_available and buffer ~= 0 then
+    vim.api.nvim_win_close(buffer, true)
+  else
+    vim.cmd('cclose')
+  end
   -- Change state
   window_state = false
+end
+
+function M.search(config)
+  local root_node = getRootNode()
+
+  -- Extract nodeTypeRequired from full config for traversal
+  local bufnr = vim.fn.bufnr()
+  local bufferFileType = vim.bo[bufnr].filetype
+  local nodeTypeConfig = config.nodeTypeRequired[bufferFileType] or config.nodeTypeRequired.generic
+
+  -- Traverse through treesitter and append nodes to "results" table
+  algo.dfsTraversal(root_node, nodeTypeConfig)
+
+  -- Open Telescope custom picker if available, else quickfix
+  local ok, _ = pcall(require, 'telescope')
+  if ok then
+    local pickers = require('telescope.pickers')
+    local finders = require('telescope.finders')
+    local conf = require('telescope.config').values
+    local actions = require('telescope.actions')
+    local action_state = require('telescope.actions.state')
+    local entry_display = require('telescope.pickers.entry_display')
+    local displayer = entry_display.create({
+      separator = "",
+      items = {
+        { width = 3 },
+        { width = 20 },
+        { remaining = true },
+      },
+    })
+    local entries = {}
+    for _, value in ipairs(algo.results) do
+      local display_text = config.displayNodeNames and (value.name or value.type) or value.type
+      local display = value.icon .. display_text .. " [" .. value.row .. ":" .. value.col .. "]"
+      table.insert(entries, {
+        value = {row = value.row, col = value.col},
+        display = display,
+        ordinal = display_text,
+        icon = value.icon,
+        display_text = display_text,
+      })
+    end
+    pickers.new({}, {
+      prompt_title = 'AST Search',
+      finder = finders.new_table({
+        results = entries,
+        entry_maker = function(entry)
+          return {
+            value = entry.value,
+            display = function()
+              return displayer({
+                { entry.icon, "ASTIcon" },
+                entry.display_text,
+                { " [" .. entry.value.row .. ":" .. entry.value.col .. "]", "ASTCoordinates" },
+              })
+            end,
+            ordinal = entry.ordinal,
+          }
+        end,
+      }),
+      sorter = conf.generic_sorter({}),
+      attach_mappings = function(prompt_bufnr, _)
+        actions.select_default:replace(function()
+          actions.close(prompt_bufnr)
+          local selection = action_state.get_selected_entry()
+          local pos = selection.value
+          vim.cmd(string.format('normal! %dgg%d|', pos.row, pos.col))
+        end)
+        return true
+      end,
+    }):find()
+  else
+    populate_qfl(algo.results, config)
+    vim.cmd('copen')
+  end
+  algo.results = {}
 end
 
 return M
