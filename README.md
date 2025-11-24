@@ -9,9 +9,29 @@ help you understand the code better.
 - It's also helpful to move around in a file quickly
 
 ## Demo
+
+### Quick Fix List (Fallback)
+
 <div align="center">
 
-![](https://github.com/ydkulks/AST.nvim/assets/56758248/04a223fa-ed67-45d8-8d60-aa57cdca7481)
+![Quick fix list](https://github.com/user-attachments/assets/e28a6d3c-e9bc-49f2-9bed-bdcef1644369)
+
+</div>
+
+### Plenary popup
+
+<div align="center">
+
+![Popup](https://github.com/user-attachments/assets/6eec6ef7-0196-48d4-b5cb-8f1602c5bcb5)
+
+</div>
+
+### Telescope
+
+<div align="center">
+
+![Telescope](https://github.com/user-attachments/assets/5afbb680-b6d9-4f7e-8782-d0748d547d0a)
+
 </div>
 
 ## Requirements

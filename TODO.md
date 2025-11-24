@@ -8,3 +8,4 @@
     - [x] Telescope (pass the nodes to telescope)
     - [x] Quick fix list
     - [x] Popup
+- [ ] Different color for each node type
