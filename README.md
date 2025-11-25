@@ -10,11 +10,11 @@ help you understand the code better.
 
 ## Demo
 
-### Quick Fix List (Fallback)
+### Telescope
 
 <div align="center">
 
-![Quick fix list](https://github.com/user-attachments/assets/e28a6d3c-e9bc-49f2-9bed-bdcef1644369)
+![Telescope search with preview](https://github.com/user-attachments/assets/140c3d09-3855-4834-bebc-89f4b94ecf43)
 
 </div>
 
@@ -26,11 +26,11 @@ help you understand the code better.
 
 </div>
 
-### Telescope
+### Quick Fix List (Fallback)
 
 <div align="center">
 
-![Telescope](https://github.com/user-attachments/assets/5afbb680-b6d9-4f7e-8782-d0748d547d0a)
+![Quick fix list](https://github.com/user-attachments/assets/e28a6d3c-e9bc-49f2-9bed-bdcef1644369)
 
 </div>
 

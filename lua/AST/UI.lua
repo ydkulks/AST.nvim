@@ -188,6 +188,7 @@ function M.search(config)
     local actions = require('telescope.actions')
     local action_state = require('telescope.actions.state')
     local entry_display = require('telescope.pickers.entry_display')
+    local previewers = require('telescope.previewers')
     local displayer = entry_display.create({
       separator = "",
       items = {
@@ -201,31 +202,38 @@ function M.search(config)
       local display_text = config.displayNodeNames and (value.name or value.type) or value.type
       local display = value.icon .. display_text .. " [" .. value.row .. ":" .. value.col .. "]"
       table.insert(entries, {
-        value = {row = value.row, col = value.col},
+        value = {row = value.row, col = value.col, bufnr = bufnr},
         display = display,
         ordinal = display_text,
+        filename = vim.api.nvim_buf_get_name(bufnr),
+        lnum = value.row,
+        col = value.col,
         icon = value.icon,
         display_text = display_text,
       })
     end
     pickers.new({}, {
       prompt_title = 'AST Search',
-      finder = finders.new_table({
-        results = entries,
-        entry_maker = function(entry)
-          return {
-            value = entry.value,
-            display = function()
-              return displayer({
-                { entry.icon, "ASTIcon" },
-                entry.display_text,
-                { " [" .. entry.value.row .. ":" .. entry.value.col .. "]", "ASTCoordinates" },
-              })
-            end,
-            ordinal = entry.ordinal,
-          }
-        end,
-      }),
+      previewer = conf.grep_previewer({}),
+       finder = finders.new_table({
+         results = entries,
+         entry_maker = function(entry)
+           return {
+             value = entry.value,
+             display = function()
+               return displayer({
+                 { entry.icon, "ASTIcon" },
+                 entry.display_text,
+                 { " [" .. entry.value.row .. ":" .. entry.value.col .. "]", "ASTCoordinates" },
+               })
+             end,
+             ordinal = entry.ordinal,
+             path = entry.filename,
+             lnum = entry.lnum,
+             col = entry.col,
+           }
+         end,
+       }),
       sorter = conf.generic_sorter({}),
       attach_mappings = function(prompt_bufnr, _)
         actions.select_default:replace(function()
