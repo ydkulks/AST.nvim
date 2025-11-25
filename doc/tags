@@ -2,4 +2,5 @@ AST	AST.txt	/*AST*
 AST.nvim	AST.txt	/*AST.nvim*
 AST.setup()	AST.txt	/*AST.setup()*
 AST.toggle()	AST.txt	/*AST.toggle()*
+AST.search()	AST.txt	/*AST.search()*
 AST.txt	AST.txt	/*AST.txt*

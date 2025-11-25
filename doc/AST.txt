@@ -13,6 +13,7 @@
 
 - SETUP                                                          |AST.setup()|
 - TOGGLE WINDOW                                                 |AST.toggle()|
+- SEARCH AST NODES                                              |AST.search()|
 
 ==============================================================================
 2. SETUP
@@ -43,7 +44,22 @@ The vim command `:ASTToggle` will toggle the pop-up. Map this command to some
 keys to toggle the window. >lua
   -- For example:
   -- Mapped <leader>t to toggle the pop-up window
-  vim.keymap.set("n","<leader>t",":ASTToggle<CR>")
+   vim.keymap.set("n","<leader>t",":ASTToggle<CR>")
+<
+
+==============================================================================
+4. SEARCH AST NODES
+                                                                *AST.search()*
+
+The vim command `:ASTSearch` populates and opens Telescope's fuzzy search with
+AST nodes from the current buffer. Each result displays an icon, node name or
+type, and position [row:col] for context. Icons and coordinates are highlighted
+for better readability.
+
+Map this command to keys for quick access. >lua
+  -- For example:
+  -- Mapped <leader>s to search AST nodes
+  vim.keymap.set("n","<leader>s",":ASTSearch<CR>")
 <
 
 vim:tw=78:ts=8:ft=help:norl:
